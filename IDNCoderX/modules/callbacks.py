@@ -1,5 +1,5 @@
 # Copyright (c) 2021 Itz-fork
-# Don't kang this else your dad is gae
+# Edited IDN-C-X
 
 import os
 import shutil
