@@ -81,7 +81,6 @@ If you found a bug in this bot please open an [issue](https://github.com/IDN-C-X
 ```
 Copyright (c) 2021 Itz-fork
 Edited by IDN-C-X (zYxDevs)
-
-This Unzipper-Bot repository is licensed under GPLv3 License (https://github.com/Itz-fork/Unzipper-Bot/blob/master/LICENSE)
-Copying or Modifying Any Part of the code without permission is strictly prohibited
 ```
+
+This IDN-Unzip-Bot repository is licensed under [GPLv3 License](https://github.com/IDN-C-X/IDN-Unzip-Bot/blob/master/LICENSE).
