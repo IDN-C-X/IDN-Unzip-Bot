@@ -75,9 +75,9 @@ def check_logs():
                 print("TF? Chat is not private")
                 return
             else:
-                client.send_message(chat_id=Config.LOGS_CHANNEL, text="`Unzipper-Bot has Successfully Started!` \n\n**Powered by @NexaBotsUpdates**")
+                client.send_message(chat_id=Config.LOGS_CHANNEL, text="`Unzipper-Bot has Successfully Started!` \n\n**Powered by @IDNCoderX**")
         else:
             print("No Log Channel ID is Given! Imma leaving Now!")
             exit()
     except:
-        print("Error Happend while checking Log Channel! Make sure you're not dumb enough to provide a wrong Log Channel ID!")
+        print("Error Happened while checking Log Channel! Make sure you're not dumb enough to provide a wrong Log Channel ID!")
