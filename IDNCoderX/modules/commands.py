@@ -25,6 +25,14 @@ from IDNCoderX.helpers.unzip_help import humanbytes
 from config import Config
 
 
+# Regex for http/https urls
+https_url_regex = ("((http|https)://)(www.)?" + 
+                "[a-zA-Z0-9@:%._\\+~#?&//=]" +
+                "{2,256}\\.[a-z]" +
+                "{2,6}\\b([-a-zA-Z0-9@:%" +
+                "._\\+~#?&//=]*)")
+
+# Function to check user status (is banned or not)
 @Client.on_message(filters.private)
 async def _(client: Client, message: Message):
     await check_user(message)
@@ -39,19 +47,13 @@ async def clean_ma_files(client: Client, message: Message):
     await message.reply_text(text=Messages.CLEAN_TXT, reply_markup=Buttons.CLN_BTNS)
     message.from_user.mention
 
-@Client.on_message(filters.incoming & filters.private & filters.document)
+@Client.on_message(filters.incoming & filters.private & filters.regex(https_url_regex) | filters.document)
 async def extract_dis_archive(client: Client, message: Message):
     unzip_msg = await message.reply("`Processing ⚙️...`", reply_to_message_id=message.message_id)
-    if message.document is None:
-        return await unzip_msg.edit("`Give me a Archive to extract lamo!`")
-    # Download Process
     user_id = message.from_user.id
     download_path = f"{Config.DOWNLOAD_LOCATION}/{user_id}"
-    ext_files_dir = f"{download_path}/extracted"
     if os.path.isdir(download_path):
-        return await unzip_msg.edit("`Already one process is going on, Don't spam you idiot 😑!`")
-    else:
-        pass
+        return await unzip_msg.edit("`Already one process is going on, Don't spam you idiot 😑!` \n\nWanna Clear You Files from my server? Then just send **/clean** command!")
     await unzip_msg.edit("**What do you want?**", reply_markup=Buttons.CHOOSE_E_BTN)
 
 # Database Commands
@@ -69,18 +71,13 @@ async def send_stats(client: Client, message: Message):
     total_banned_users = await count_banned_users()
     await stats_msg.edit(f"""
 **💫 Current Bot Stats 💫**
-
 **👥 Users:** 
  ↳**Users in Database:** `{total_users}`
  ↳**Total Banned Users:** `{total_banned_users}`
-
-
 **💾 Disk Usage,**
  ↳**Total Disk Space:** `{total}`
  ↳**Used:** `{used}({disk_usage}%)`
  ↳**Free:** `{free}`
-
-
 **🎛 Hardware Usage,**
  ↳**CPU Usage:** `{cpu_usage}%`
  ↳**RAM Usage:** `{ram_usage}%`"""
@@ -117,7 +114,6 @@ async def broadcast_dis(client: Client, message: Message):
     total_users = await count_users()
     await bc_msg.edit(f"""
 **Broadcast Completed ✅!**
-
 **Total Users:** `{total_users}`
 **Successful Responses:** `{success_no}`
 **Failed Responses:** `{failed_no}`
