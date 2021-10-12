@@ -7,14 +7,35 @@ import os
 from pykeyboard import InlineKeyboard
 from pyrogram.types import InlineKeyboardButton
 
-async def extract_with_7z_helper(path, archive_path, password=None):
+## Run commands in shell
+async def __run_cmds_unzipper(command):
+    ext_cmd = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    ext_out = ext_cmd.stdout.read()[:-1].decode("utf-8")
+    return ext_out
+
+## Extract with 7z
+async def _extract_with_7z_helper(path, archive_path, password=None):
     if password:
         command = f"7z x -o{path} -p{password} {archive_path} -y"
     else:
         command = f"7z x -o{path} {archive_path} -y"
-    ext_cmd = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-    ext_out = ext_cmd.stdout.read()[:-1].decode("utf-8")
-    return ext_out
+    return await __run_cmds_unzipper(command)
+
+##Extract with zstd (for .zst files)
+async def _extract_with_zstd(path, archive_path):
+    command = f"zstd -f --output-dir-flat {path} -d {archive_path}"
+    return await __run_cmds_unzipper(command)
+
+# Main function to extract files
+async def extr_files(path, archive_path, password=None):
+    file_path = os.path.splitext(archive_path)[1]
+    if file_path == ".zst":
+        os.mkdir(path)
+        ex = await _extract_with_zstd(path, archive_path)
+        return ex
+    else:
+        ex = await _extract_with_7z_helper(path, archive_path, password)
+        return ex
 
 # Get files in directory as a list
 def get_files(path):
