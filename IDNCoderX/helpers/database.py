@@ -31,10 +31,7 @@ async def del_user(user_id):
 async def is_user_in_db(user_id):
     u_id = int(user_id)
     is_exist = await user_db.find_one({"user_id": u_id})
-    if is_exist:
-        return True
-    else:
-        return False
+    return bool(is_exist)
 
 async def count_users():
     users = await user_db.count_documents({})
@@ -66,10 +63,7 @@ async def del_banned_user(user_id):
 async def is_user_in_bdb(user_id):
     u_id = int(user_id)
     is_exist = await b_user_db.find_one({"banned_user_id": u_id})
-    if is_exist:
-        return True
-    else:
-        return False
+    return bool(is_exist)
 
 async def count_banned_users():
     users = await b_user_db.count_documents({})
