@@ -43,15 +43,20 @@ def get_files(path):
 
 # Make keyboard
 async def make_keyboard(paths, user_id, chat_id):
+    num = 0
     i_kbd = InlineKeyboard(row_width=1)
-    data = [InlineKeyboardButton('Upload All ♻️', f"ext_a|{user_id}|{chat_id}")]
+    data = []
+    data.append(
+        InlineKeyboardButton(f"Upload All ♻️", f"ext_a|{user_id}|{chat_id}")
+    )
     data.append(
         InlineKeyboardButton("Cancel ❌", "cancel_dis")
     )
-    for num, file in enumerate(paths):
+    for file in paths:
         data.append(
             InlineKeyboardButton(f"{num} - {os.path.basename(file)}".encode("utf-8").decode("utf-8"), f"ext_f|{user_id}|{chat_id}|{num}")
         )
+        num += 1
     i_kbd.add(*data)
     return i_kbd
 
