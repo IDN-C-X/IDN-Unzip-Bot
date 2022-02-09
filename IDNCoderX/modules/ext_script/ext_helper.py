@@ -50,7 +50,7 @@ async def make_keyboard(paths, user_id, chat_id):
     )
     for num, file in enumerate(paths):
         data.append(
-            InlineKeyboardButton(f"{num} - {os.path.basename(file)}", f"ext_f|{user_id}|{chat_id}|{num}")
+            InlineKeyboardButton(f"{num} - {os.path.basename(file)}".encode("utf-8").decode("utf-8"), f"ext_f|{user_id}|{chat_id}|{num}")
         )
     i_kbd.add(*data)
     return i_kbd
