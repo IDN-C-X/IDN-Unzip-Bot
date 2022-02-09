@@ -13,7 +13,7 @@ from pyrogram.types import CallbackQuery
 
 from .bot_data import Buttons, Messages, ERROR_MSGS
 from .ext_script.ext_helper import extr_files, get_files, make_keyboard
-from .ext_script.up_helper import send_file
+from .ext_script.up_helper import send_file, answer_query
 from .commands import https_url_regex
 from IDNCoderX.helpers.database import set_upload_mode
 from IDNCoderX.helpers.unzip_help import progress_for_pyrogram, TimeFormatter, humanbytes
