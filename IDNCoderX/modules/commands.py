@@ -19,7 +19,8 @@ from IDNCoderX.helpers.database import (
     # Banned Users db
     add_banned_user,
     del_banned_user,
-    count_banned_users
+    count_banned_users,
+    get_upload_mode
     )
 from IDNCoderX.helpers.unzip_help import humanbytes
 from config import Config
@@ -71,13 +72,16 @@ async def send_stats(client: Client, message: Message):
     total_banned_users = await count_banned_users()
     await stats_msg.edit(f"""
 **💫 Current Bot Stats 💫**
+
 **👥 Users:** 
  ↳**Users in Database:** `{total_users}`
  ↳**Total Banned Users:** `{total_banned_users}`
+ 
 **💾 Disk Usage,**
  ↳**Total Disk Space:** `{total}`
  ↳**Used:** `{used}({disk_usage}%)`
  ↳**Free:** `{free}`
+ 
 **🎛 Hardware Usage,**
  ↳**CPU Usage:** `{cpu_usage}%`
  ↳**RAM Usage:** `{ram_usage}%`"""
@@ -138,3 +142,10 @@ async def unban_user(client: Client, message: Message):
         return await unban_msg.edit("`Give a user id to unban!`")
     await del_banned_user(user_id)
     await unban_msg.edit(f"**Successfully Unbanned That User ✅** \n\n**User ID:** `{user_id}`")
+    
+    
+# Database Commands
+@Client.on_message(filters.private & filters.command(["mode", "setmode"]))
+async def set_up_mode_for_user(_, message: Message):
+    upload_mode = await get_upload_mode(message.from_user.id)
+    await message.reply(Messages.SELECT_UPLOAD_MODE_TXT.format(upload_mode), reply_markup=Buttons.SET_UPLOAD_MODE_BUTTONS)
