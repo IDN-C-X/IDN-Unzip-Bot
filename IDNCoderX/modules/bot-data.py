@@ -48,6 +48,15 @@ class Buttons:
             ]
         ]
     )
+    
+    SET_UPLOAD_MODE_BUTTONS = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton("As Doc 📁", callback_data="set_mode|doc")
+            ],
+            [
+                InlineKeyboardButton("As Video 📹", callback_data="set_mode|video")
+            ]
+        ])
 
 
 class Messages:
@@ -63,6 +72,10 @@ Hi **{}**, I'm **IDNCoderX Unzipper Bot** 😇!
 **How To Extract? 🤔**
 `1. Send the file or link that you want to extract.`
 `2. Click on extract button (If you sent a link use "Url Extract" button. If it's a file just use "File Extract" button).`
+
+**How To Change Upload Mode? 🤔**
+ `Send` **/mode** `command to the bot. You can change upload mode from there.`
+ 
 **Note:**
     **1.** `If your archive is password protected select` **(Password) Extract 📂** `mode. Bot isn't a GOD to know your file's password so If this happens just send that password!`
     
@@ -77,11 +90,13 @@ Hi **{}**, I'm **IDNCoderX Unzipper Bot** 😇!
 ✘ **Framework:** [Pyrogram](https://docs.pyrogram.org/)
 ✘ **Source Code:** [IDN-C-X/IDN-Unzip-Bot](https://github.com/IDN-C-X/IDN-UnzipBot)
 ✘ **Developer:** [zYxDevs](https://github.com/zYxDevs)
+
 **Made with ❤️ by @IDNCoder**
     """
 
     LOG_TXT = """
 **Extract Log 📝!**
+
 **User ID:** `{}`
 **File Name:** `{}`
 **File Size:** `{}`
@@ -89,18 +104,21 @@ Hi **{}**, I'm **IDNCoderX Unzipper Bot** 😇!
 
     AFTER_OK_DL_TXT = """
 **Successfully Downloaded**
+
 **Download time:** `{}`
 **Status:** `Trying to extract the archive`
     """
 
     EXT_OK_TXT = """
 **Extraction Successfull!**
+
 **Extraction time:** `{}`
 **Status:** `Trying to upload`
     """
 
     EXT_FAILED_TXT = """
 **Extraction Failed 😕!**
+
 **What to do?**
  - `Please make sure archive isn't corrupted`
  - `Please make sure that you selected the right mode!`
@@ -110,6 +128,7 @@ Hi **{}**, I'm **IDNCoderX Unzipper Bot** 😇!
 
     ERROR_TXT = """
 **Error Happend 😕!**
+
 **ERROR:** {}
 **Please report this at @IDNCoderX if you think this is a serious error**
     """
