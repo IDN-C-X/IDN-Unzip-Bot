@@ -142,6 +142,14 @@ Hi **{}**, I'm **IDNCoderX Unzipper Bot** 😇!
 **Are sure want to delete your files from my server 🤔?**
 **Note:** `This action cannot be undone!`
     """
+    
+    SELECT_UPLOAD_MODE_TXT = """
+`Please select the upload mode by clicking on below buttons!`
+**Current Upload mode is:** `{}`
+"""
+    CHANGED_UPLOAD_MODE_TXT = """
+**Successfully changed upload mode to** `{}` **✅!**
+"""
 
 
 # List of error messages from p7zip
