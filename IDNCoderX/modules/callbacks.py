@@ -15,6 +15,7 @@ from .bot_data import Buttons, Messages, ERROR_MSGS
 from .ext_script.ext_helper import extr_files, get_files, make_keyboard
 from .ext_script.up_helper import send_file
 from .commands import https_url_regex
+from IDNCoderX.helpers.database import set_upload_mode
 from IDNCoderX.helpers.unzip_help import progress_for_pyrogram, TimeFormatter, humanbytes
 from config import Config
 
@@ -29,6 +30,12 @@ async def unzipper_cb(unzip_bot: Client, query: CallbackQuery):
 
     elif query.data == "aboutcallback":
         await query.edit_message_text(text=Messages.ABOUT_TXT, reply_markup=Buttons.ME_GOIN_HOME, disable_web_page_preview=True)
+        
+    elif query.data.startswith("set_mode"):
+        user_id = query.from_user.id
+        mode = query.data.split("|")[1]
+        await set_upload_mode(user_id, mode)
+        await answer_query(query, Messages.CHANGED_UPLOAD_MODE_TXT.format(mode))
 
     elif query.data.startswith("extract_file"):
         user_id = query.from_user.id
